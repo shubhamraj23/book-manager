@@ -8,6 +8,7 @@ require('./mongoose')
 
 // Import all the relevant modules.
 const express = require('express')
+const cors = require('cors')
 const router = require('./router')
 
 // Create an express application.
@@ -16,6 +17,7 @@ const app = express()
 // Setup the middleware.
 app.use(express.json())
 app.use(router)
+app.use(cors({ methods: 'GET,POST,PATCH,DELETE' }))
 
 // Setup the port for running the app.
 const PORT = process.env.PORT || 8000
