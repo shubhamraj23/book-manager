@@ -2,7 +2,8 @@ const express = require('express')
 const Book = require('./bookModel')
 const router = new express.Router()
 
-router.post('/addBook', async (request, response) => {
+// Route to add a book.
+router.post('/add', async (request, response) => {
   try {
     // Fetch the book data from request body.
     let data = request.body
@@ -51,7 +52,8 @@ router.post('/addBook', async (request, response) => {
   }
 })
 
-router.get('/viewBooks', async (request, response) => {
+// Route to view the details of all the books.
+router.get('/viewAll', async (request, response) => {
   try {
     // Search for all the books and return the response
     const books = await Book.find({ })
@@ -63,6 +65,30 @@ router.get('/viewBooks', async (request, response) => {
       }
     })
     response.status(200).send({ books: updatedBooks })
+
+  } catch (error) {
+    response.status(500).send({
+      error: "Something unprecedented happened. Please try again."
+    })
+  }
+})
+
+// Route to view the details of a single book.
+router.get('/view/:id', async (request, response) => {
+  try {
+    // Search for all the given book and return the response
+    const book = await Book.findById(request.params.id)
+    if (!book) {
+      return response.status(400).send({
+        error: "Invalid Book Id."
+      })
+    }
+    response.status(200).send({
+      id: book._id,
+      title: book.title,
+      author: book.author,
+      summary: book.summary
+    })
 
   } catch (error) {
     response.status(500).send({
