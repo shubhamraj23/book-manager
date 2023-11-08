@@ -125,4 +125,27 @@ router.patch('/update/:id', async (request, response) => {
   }
 })
 
+// Route to delete a book.
+router.delete('/delete/:id', async (request, response) => {
+  try {
+    // Search for the given book.
+    const book = await Book.findById(request.params.id)
+    if (!book) {
+      return response.status(400).send({
+        error: "Invalid Book Id."
+      })
+    }
+
+    await Book.findByIdAndDelete(request.params.id)
+    response.status(200).send({
+      message: "Book successfully deleted."
+    })
+
+  } catch (error) {
+    response.status(500).send({
+      error: "Something unprecedented happened. Please try again."
+    })
+  }
+})
+
 module.exports = router
