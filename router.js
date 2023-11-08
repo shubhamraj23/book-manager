@@ -27,17 +27,6 @@ router.post('/add', async (request, response) => {
       })
     }
 
-    // Check if the a book exists with the same title and author.
-    const existingBook = await Book.findOne({ 
-      title: data.title, 
-      author: data.author 
-    })
-    if (existingBook) {
-      return response.status(400).send({
-        error: "This book already exists."
-      })
-    }
-
     // If everything is satisfied, add the book to the database.
     const book = new Book(data)
     await book.save()
@@ -55,10 +44,11 @@ router.post('/add', async (request, response) => {
 // Route to view the details of all the books.
 router.get('/viewAll', async (request, response) => {
   try {
-    // Search for all the books and return the response
+    // Search for all the books and return the response.
     const books = await Book.find({ })
     const updatedBooks = books.map((book) => {
       return {
+        id: book._id,
         title: book.title,
         author: book.author,
         summary: book.summary
@@ -76,18 +66,56 @@ router.get('/viewAll', async (request, response) => {
 // Route to view the details of a single book.
 router.get('/view/:id', async (request, response) => {
   try {
-    // Search for all the given book and return the response
+    // Search for the given book.
     const book = await Book.findById(request.params.id)
     if (!book) {
       return response.status(400).send({
         error: "Invalid Book Id."
       })
     }
+
     response.status(200).send({
       id: book._id,
       title: book.title,
       author: book.author,
       summary: book.summary
+    })
+
+  } catch (error) {
+    response.status(500).send({
+      error: "Something unprecedented happened. Please try again."
+    })
+  }
+})
+
+// Route to update the details of a book.
+router.patch('/update/:id', async (request, response) => {
+  try {
+    // Search for the given book.
+    const book = await Book.findById(request.params.id)
+    if (!book) {
+      return response.status(400).send({
+        error: "Invalid Book Id."
+      })
+    }
+
+    // Check if the update is a valid update or not.
+    const updates = Object.keys(request.body)
+    const allowedUpdates = ["title", "author", "summary"]
+    const validUpdate = updates.every((update) => allowedUpdates.includes(update))
+    if (!validUpdate) {
+      return response.status(400).send({
+        error: "Invalid updates."
+      })
+    }
+
+    updates.forEach((update) => {
+      book[update] = request.body[update]
+    })
+    await book.save()
+
+    response.status(200).send({
+      message: "Updates successful."
     })
 
   } catch (error) {
