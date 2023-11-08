@@ -5,6 +5,7 @@ This repository contains a RESTful API created using Node.js and MongoDB for man
  - [Repository Structure](#repository-structure)
  - [API Endpoints and their usage](#api-endpoints-and-their-usage)
  - [Setup to run the API locally](#setup-to-run-the-api-locally)
+ - [Deployment](#deployment)
 
 ## Repository Structure
 This repository contains the following main files
@@ -39,7 +40,7 @@ The REST API contains the following 5 endpoints:
 ### Prerequisites
 - The system must have NodeJS installed.
 - To test if the application is running properly, you must have Postman and MongoDB Compass (or any other tool that can connect to the MongoDB instance and show the documents).
-- The URL of a running MongoDB instance on any server
+- The URL of a running MongoDB instance on any server.
 
 ### Steps
 - Clone the repository using the command ```git clone https://github.com/shubhamraj23/book-manager.git```.
@@ -52,3 +53,11 @@ The REST API contains the following 5 endpoints:
   Make sure that you correctly insert the URL of your MongoDB instance.
 - Run the application using the command ```npm run dev```
 - You can now test the different routes using Postman and check the changes using MongoDB Compass.
+
+## Deployment
+The REST API has been deployed on an online server through the Railway App. The base URL of the deployed REST API is [https://book-manager-production.up.railway.app/](https://book-manager-production.up.railway.app/), and the endpoints are the same as described in the above documentation. The process of deployment has been described below.
+- Go to [Railway](https://railway.app/) on your browser and sign up using GitHub.
+- Click on Deploy from GitHub, and then configure GitHub to add the repository that contains the code which needs to be deployed.
+- Set the environment variables.
+- Go to settings and click on generate domain to generate the URL to access the application.
+- The REST API has been successfully deployed and you can test it using Postman.
