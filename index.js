@@ -3,6 +3,9 @@ if (process.env.NODE_ENV !== 'prod'){
   require('dotenv').config()
 }
 
+// Execute the mongoose file to setup the MongoDB connection
+require('./mongoose')
+
 // Import all the relevant modules.
 const express = require('express')
 
