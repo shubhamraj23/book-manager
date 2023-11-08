@@ -25,6 +25,4 @@ const PORT = process.env.PORT || 8000
 // Run the application.
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`)
-  console.log(process.env.NODE_ENV)
-  console.log(process.env.MONGOURL)
 })
