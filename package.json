@@ -1,0 +1,26 @@
+{
+  "name": "book-manager",
+  "version": "1.0.0",
+  "description": "A RESTful API created using Node.js and MongoDB for managing books.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shubhamraj23/book-manager.git"
+  },
+  "author": "Shubham Raj Pandit",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shubhamraj23/book-manager/issues"
+  },
+  "homepage": "https://github.com/shubhamraj23/book-manager#readme",
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  },
+  "dependencies": {
+    "dotenv": "^16.3.1"
+  }
+}
