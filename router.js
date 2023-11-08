@@ -51,4 +51,24 @@ router.post('/addBook', async (request, response) => {
   }
 })
 
+router.get('/viewBooks', async (request, response) => {
+  try {
+    // Search for all the books and return the response
+    const books = await Book.find({ })
+    const updatedBooks = books.map((book) => {
+      return {
+        title: book.title,
+        author: book.author,
+        summary: book.summary
+      }
+    })
+    response.status(200).send({ books: updatedBooks })
+
+  } catch (error) {
+    response.status(500).send({
+      error: "Something unprecedented happened. Please try again."
+    })
+  }
+})
+
 module.exports = router
